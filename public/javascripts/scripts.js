@@ -3,7 +3,7 @@ function handleColor(event, type) {
 
     elements.forEach(element => {
         element.style.backgroundColor = event.target.value;
-    });
+    })
 }
 
 function checkValues() {
@@ -63,67 +63,50 @@ function populateModal(id, nip, regon, name, isVat, street, house, flat) {
 }
 
 function editContractor(){
-    const id = document.getElementById("id-holder").dataset.indexNumber
-    const nip = document.getElementById("nip-edit").value
-    const regon = document.getElementById("regon-edit").value
-    const name = document.getElementById("name-edit").value
-    const isVatInput = document.getElementById("is-vat-edit").checked
-    const street = document.getElementById("street-edit").value
-    const house = document.getElementById("house-edit").value
-    const flat = document.getElementById("flat-edit").value
-    const isVat = isVatInput ? 1 : 0
-
     const insertData = {
-        id,
-        nip,
-        regon,
-        name,
-        isVat,
-        street,
-        house,
-        flat
+        id: document.getElementById("id-holder").dataset.indexNumber,
+        nip: document.getElementById("nip-edit").value,
+        regon: document.getElementById("regon-edit").value,
+        name: document.getElementById("name-edit").value,
+        isVat: document.getElementById("is-vat-edit").checked,
+        street: document.getElementById("street-edit").value,
+        house: document.getElementById("house-edit").value,
+        flat: document.getElementById("flat-edit").value
     }
 
+
     const url = "/edit"
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+    const myHeaders = new Headers()
+    myHeaders.append("Content-Type", "application/json")
 
     fetch(url, {
         method: "POST",
-        mode: 'cors',
+        mode: "cors",
         headers: myHeaders,
         body: JSON.stringify(insertData),
     })
     .then(res => res.status === 200 ? location.reload() : null)
 }
 
-function insertContractor() {
-    const nip = document.getElementById("nip-create").value
-    const regon = document.getElementById("regon-create").value
-    const name = document.getElementById("name-create").value
-    const isVatInput = document.getElementById("is-vat-create").checked
-    const street = document.getElementById("street-create").value
-    const house = document.getElementById("house-create").value
-    const flat = document.getElementById("flat-create").value
-    const isVat = isVatInput ? 1 : 0
-
+function insertContractor() {    
     const insertData = {
-        nip,
-        regon,
-        name,
-        isVat,
-        street,
-        house,
-        flat
+        nip: document.getElementById("nip-create").value,
+        regon: document.getElementById("regon-create").value,
+        name: document.getElementById("name-create").value,
+        isVat: document.getElementById("is-vat-create").checked,
+        street: document.getElementById("street-create").value,
+        house: document.getElementById("house-create").value,
+        flat: document.getElementById("flat-create").value
     }
 
+
     const url = "/insert"
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+    const myHeaders = new Headers()
+    myHeaders.append("Content-Type", "application/json")
 
     fetch(url, {
         method: "POST",
-        mode: 'cors',
+        mode: "cors",
         headers: myHeaders,
         body: JSON.stringify(insertData),
     })
@@ -133,18 +116,18 @@ function insertContractor() {
 
 function deleteEntry(id) {
     const url = "/delete"
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+    const myHeaders = new Headers()
+    myHeaders.append("Content-Type", "application/json")
 
-    const data = {
+    const insertData = {
         id
     }
 
     fetch(url, {
         method: "POST",
-        mode: 'cors',
+        mode: "cors",
         headers: myHeaders,
-        body: JSON.stringify(data),
+        body: JSON.stringify(insertData),
     })
     .then(res => res.status === 200 ? location.reload() : null)
 }
