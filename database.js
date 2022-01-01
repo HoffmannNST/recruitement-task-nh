@@ -1,9 +1,9 @@
 let mysql = require('mysql2');
 let conn = mysql.createConnection({
-  host: 'us-cdbr-east-05.cleardb.net', 
-  user: 'user',      
-  password: 'password',      
-  database: 'db' 
+  host: HOST_SECRET_NAME, 
+  user: USER_SECRET_NAME,      
+  password: SECRET_PASSWORD,      
+  database: DB_SECRET_NAME 
 }); 
 
 conn.connect(function(err) {
