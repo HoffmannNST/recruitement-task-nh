@@ -1,7 +1,5 @@
-const express = require('express');
-const app = express()
-const router = express.Router();
-const db = require('../database');
+const express = require('express')
+const router = express.Router()
 const connectionRequest = require('../connectionRequest')
 
 /* GET home page. */
@@ -19,7 +17,7 @@ router.get('/factures', function (req, res, next) {
 
 // this script to fetch data from MySQL databse table
 router.get('/delegations', function (req, res, next) {
-  var sql = 'SELECT * FROM delegations';
+  const sql = 'SELECT * FROM delegations';
   connection = connectionRequest()
   connection.query(sql, function (err, data, fields) {
     if (err) throw err;
@@ -31,7 +29,7 @@ router.get('/delegations', function (req, res, next) {
 
 // this script to fetch data from MySQL databse table
 router.get('/contractors', function (req, res, next) {
-  var sql = 'SELECT * FROM contractors ORDER BY name ASC';
+  const sql = 'SELECT * FROM contractors ORDER BY name ASC';
   connection = connectionRequest()
   connection.query(sql, function (err, data, fields) {
     if (err) throw err;
