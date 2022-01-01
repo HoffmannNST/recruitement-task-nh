@@ -1,8 +1,8 @@
 module.exports = function () {
     let mysql = require('mysql2');
     let conn = mysql.createConnection({
-        host: 'us-cdbr-east-05.cleardb.net', 
-        user: 'user',      
+        host: hostSecretName, 
+        user: userSecretName,      
         password: 'password',      
         database: 'db' 
     }); 
