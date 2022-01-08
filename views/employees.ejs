@@ -13,75 +13,89 @@
 </head>
 
 <body>
-    <div id="Lewy" class="sidenav px-3">
-        <nav class="nav navbar-dark flex-column nav-pills nav-fill">
-            <a class="nav-link" href="/">Różne kontrolki HTML</a>
-            <a class="nav-link active" aria-current="page" href="/employees">Tabela Pracowników</a>
-            <a class="nav-link" href="/factures">Tabela Faktur VAT</a>
-            <a class="nav-link" href="/delegations">Tabela Delegacji BD</a>
-            <a class="nav-link" href="/contractors">Dane Kontrahentów</a>
+    <div class="wrapper d-flex flex-column flex-md-row ps-0">
+        <nav class="navbar navbar-expand-md navbar-light d-flex flex-md-column">
+            <div class="ps-3">
+                <button class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" 
+                    aria-expanded="false" 
+                    aria-label="Toggle Navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div id="navbarSupportedContent" class="collapse navbar-collapse nav navbar-dark flex-column nav-pills nav-fill px-3">
+                <div id="sideMenu" class="navbar-nav w-100 d-flex flex-md-column text-center text-md-center">
+                    <a class="nav-link" href="/">Różne kontrolki HTML</a>
+                    <a class="nav-link active" aria-current="page" href="/employees"><span id="active">Tabela Pracowników</span></a>
+                    <a class="nav-link" href="/factures">Tabela Faktur VAT</a>
+                    <a class="nav-link" href="/delegations">Tabela Delegacji BD</a>
+                    <a class="nav-link" href="/contractors">Dane Kontrahentów</a>
+                </div>
+            </div>
         </nav>
-    </div>
-
-    <div id="Prawy" class="main">
-        <table class="table table-striped table-hover table-bordered align-middle caption-top">
-            <tr class="text-center">
-                <th>Lp.</th>
-                <th>Imię</th>
-                <th>Nazwisko</th>
-                <th>Stanowisko</th>
-                <th>Data zatrudnienia</th>
-                <th>Ilość dni urlopowych</th>
-            </tr>
-            <tr class="odd">
-                <th>1</th>
-                <th>Adam</th>
-                <th>Kowalski</th>
-                <th>Prezes</th>
-                <th>20.11.2002</th>
-                <th>14</th>
-            </tr>
-            <tr class="even">
-                <th>2</th>
-                <th>Marcin</th>
-                <th>Nowak</th>
-                <th>Kierowca</th>
-                <th>10.02.2012</th>
-                <th>5</th>
-            </tr>
-            <tr class="odd">
-                <th>3</th>
-                <th>Anna</th>
-                <th>Wiśniewska</th>
-                <th>Sekretarka</th>
-                <th>12.09.2010</th>
-                <th>21</th>
-            </tr>
-            <tr class="even">
-                <th>4</th>
-                <th>Kamil</th>
-                <th>Wójcik</th>
-                <th>Informatyk</th>
-                <th>29.02.2005</th>
-                <th>16</th>
-            </tr>
-            <tr class="odd">
-                <th>5</th>
-                <th>Weronika</th>
-                <th>Kowalczyk</th>
-                <th>Menadżer</th>
-                <th>01.06.2017</th>
-                <th>19</th>
-            </tr>
-        </table>
-        <div class="">
-            <div class="input-group">
-                <span class="input-group-text" id="basic-addon3">Kolor 1</span>
-                <input class="form-control form-control-color me-1" type="color" id="oddColorPicker" name="oddColorPicker" value="#f8f9fa"
-                    onchange="handleColor(event, 'odd')">
-                <span class="input-group-text ms-1" id="basic-addon3">Kolor 2</span>
-                <input class="form-control form-control-color" type="color" id="evenColorPicker" name="evenColorPicker" value="#adb5bd"
-                    onchange="handleColor(event, 'even')">
+        <div id="Main" class="container">
+            <table class="table table-striped table-hover table-bordered align-middle caption-top">
+                <tr class="text-center">
+                    <th>Lp.</th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Stanowisko</th>
+                    <th>Data zatrudnienia</th>
+                    <th>Ilość dni urlopowych</th>
+                </tr>
+                <tr class="odd">
+                    <th>1</th>
+                    <th>Adam</th>
+                    <th>Kowalski</th>
+                    <th>Prezes</th>
+                    <th>20.11.2002</th>
+                    <th>14</th>
+                </tr>
+                <tr class="even">
+                    <th>2</th>
+                    <th>Marcin</th>
+                    <th>Nowak</th>
+                    <th>Kierowca</th>
+                    <th>10.02.2012</th>
+                    <th>5</th>
+                </tr>
+                <tr class="odd">
+                    <th>3</th>
+                    <th>Anna</th>
+                    <th>Wiśniewska</th>
+                    <th>Sekretarka</th>
+                    <th>12.09.2010</th>
+                    <th>21</th>
+                </tr>
+                <tr class="even">
+                    <th>4</th>
+                    <th>Kamil</th>
+                    <th>Wójcik</th>
+                    <th>Informatyk</th>
+                    <th>29.02.2005</th>
+                    <th>16</th>
+                </tr>
+                <tr class="odd">
+                    <th>5</th>
+                    <th>Weronika</th>
+                    <th>Kowalczyk</th>
+                    <th>Menadżer</th>
+                    <th>01.06.2017</th>
+                    <th>19</th>
+                </tr>
+            </table>
+            <div class="">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon3">Kolor 1</span>
+                    <input class="form-control form-control-color me-1" type="color" id="oddColorPicker" name="oddColorPicker" value="#f8f9fa"
+                        onchange="handleColor(event, 'odd')">
+                    <span class="input-group-text ms-1" id="basic-addon3">Kolor 2</span>
+                    <input class="form-control form-control-color" type="color" id="evenColorPicker" name="evenColorPicker" value="#adb5bd"
+                        onchange="handleColor(event, 'even')">
+                </div>
             </div>
         </div>
     </div>

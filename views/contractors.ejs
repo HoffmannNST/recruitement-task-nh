@@ -13,184 +13,198 @@
 </head>
 
 <body>
-    <div id="Lewy" class="sidenav px-3">
-        <nav class="nav navbar-dark flex-column nav-pills nav-fill">
-            <a class="nav-link" href="/">Różne kontrolki HTML</a>
-            <a class="nav-link" href="/employees">Tabela Pracowników</a>
-            <a class="nav-link" href="/factures">Tabela Faktur VAT</a>
-            <a class="nav-link" href="/delegations">Tabela Delegacji BD</a>
-            <a class="nav-link active" aria-current="page" href="/contractors">Dane Kontrahentów</a>
+    <div class="wrapper d-flex flex-column flex-md-row ps-0">
+        <nav class="navbar navbar-expand-md navbar-light d-flex flex-md-column">
+            <div class="ps-3">
+                <button class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" 
+                    aria-expanded="false" 
+                    aria-label="Toggle Navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div id="navbarSupportedContent" class="collapse navbar-collapse nav navbar-dark flex-column nav-pills nav-fill px-3">
+                <div id="sideMenu" class="navbar-nav w-100 d-flex flex-md-column text-center text-md-center">
+                    <a class="nav-link" href="/">Różne kontrolki HTML</a>
+                    <a class="nav-link" href="/employees">Tabela Pracowników</a>
+                    <a class="nav-link" href="/factures">Tabela Faktur VAT</a>
+                    <a class="nav-link" href="/delegations">Tabela Delegacji BD</a>
+                    <a class="nav-link active" aria-current="page" href="/contractors"><span id="active">Dane Kontrahentów</span></a>
+                </div>
+            </div>
         </nav>
-    </div>
-
-    <div id="Prawy" class="main">
-        <table class="table table-striped table-hover table-bordered align-middle caption-top">
-            <tr class="text-center">
-                <th>Lp.</th>
-                <th>NIP</th>
-                <th>REGON</th>
-                <th>NAZWA</th>
-                <th>CZY PŁATNIK VAT?</th>
-                <th>ULICA</th>
-                <th>NUMER DOMU</th>
-                <th>NUMER MIESZKANIA</th>
-                <th colspan="2">EDYCJA</th>
-            </tr>
-            <% if(userData.length!=0){
-            var i=1;
-            userData.forEach(function(data){ %>
-                <% if(data.deleted===0){ %>
+        <div id="Main" class="container">
+            <table class="table table-striped table-hover table-bordered align-middle caption-top">
+                <tr class="text-center">
+                    <th>Lp.</th>
+                    <th>NIP</th>
+                    <th>REGON</th>
+                    <th>NAZWA</th>
+                    <th>CZY PŁATNIK VAT?</th>
+                    <th>ULICA</th>
+                    <th>NUMER DOMU</th>
+                    <th>NUMER MIESZKANIA</th>
+                    <th colspan="2">EDYCJA</th>
+                </tr>
+                <% if(userData.length!=0){
+                var i=1;
+                userData.forEach(function(data){ %>
+                    <% if(data.deleted===0){ %>
+                        <tr class="boldRow">
+                            <td><%=i; %></td>
+                            <td><%=data.nip %></td>
+                            <td><%=data.regon %></td>
+                            <td><%=data.name %></td>
+                            <% if(data.isVat===0){ %>
+                                <td>Nie</td>
+                            <% } else{ %>
+                                <td>Tak</td>
+                            <% } %>
+                            <td><%=data.street %></td>
+                            <td><%=data.house %></td>
+                            <td><%=data.flat %></td>
+                            <!-- Button trigger ModalEdit -->
+                            <td>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalEdit" 
+                                    onclick="populateModal(<%=data.id %>, '<%=data.nip %>', '<%=data.regon %>', '<%=data.name %>', <%=data.isVat %>, '<%=data.street %>', '<%=data.house %>', '<%=data.flat %>')">
+                                    Edytuj
+                                </button>
+                            </td>
+                            <td><button type="button" class="btn btn-danger" onclick="deleteEntry(<%=data.id %>)">Usuń</button></td>
+                        </tr>
+                    <% } %>
+                    <%  i++; }) %>
+                <% } else{ %>
                     <tr class="boldRow">
-                        <td><%=i; %></td>
-                        <td><%=data.nip %></td>
-                        <td><%=data.regon %></td>
-                        <td><%=data.name %></td>
-                        <% if(data.isVat===0){ %>
-                            <td>Nie</td>
-                        <% } else{ %>
-                            <td>Tak</td>
-                        <% } %>
-                        <td><%=data.street %></td>
-                        <td><%=data.house %></td>
-                        <td><%=data.flat %></td>
-                        <!-- Button trigger ModalEdit -->
-                        <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalEdit" 
-                                onclick="populateModal(<%=data.id %>, '<%=data.nip %>', '<%=data.regon %>', '<%=data.name %>', <%=data.isVat %>, '<%=data.street %>', '<%=data.house %>', '<%=data.flat %>')">
-                                Edytuj
-                            </button>
-                        </td>
-                        <td><button type="button" class="btn btn-danger" onclick="deleteEntry(<%=data.id %>)">Usuń</button></td>
+                        <td colspan="8">Nie znaleziono danych</td>
                     </tr>
                 <% } %>
-                <%  i++; }) %>
-            <% } else{ %>
-                <tr class="boldRow">
-                    <td colspan="8">Nie znaleziono danych</td>
-                </tr>
-            <% } %>
-        </table>
-        
-        <!-- Button trigger ModalCreate -->
-        <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreate">
-                Dodaj nowego kontrahenta 
-            </button>
+            </table>
+            
+            <!-- Button trigger ModalCreate -->
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCreate">
+                    Dodaj nowego kontrahenta 
+                </button>
+            </div>
+            
+            <!-- ModalCreate -->
+            <div class="modal fade" id="ModalCreate" tabindex="-1" aria-labelledby="ModalCreateLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalCreateLabel">Dodaj nowego kontrahenta</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label" htmlFor="nip-create">NIP</label>
+                                    <input class="form-control" type="text" id="nip-create" maxLength="45"
+                                        placeholder="numer indentyfikacji podatkowej"></input>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" htmlFor="regon-create">REGON</label>
+                                    <input class="form-control" type="text" id="regon-create" maxLength="45"
+                                        placeholder="numer REGON"></input>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" htmlFor="name-create">Nazwa</label>
+                                    <input class="form-control" type="text" id="name-create" maxLength="45"
+                                        placeholder="nazwa"></input>
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <div class="input-group text-center mb-3">
+                                        <span class="input-group-text" id="basic-addon3">Czy płatnik VAT?</span>
+                                        <div class="form-control">
+                                            <input class="form-check-input" type="checkbox" value="" id="is-vat-create"></input>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" htmlFor="street-create">Ulica</label>
+                                    <input class="form-control" type="text" id="street-create" maxLength="45"
+                                        placeholder="adres 1"></input>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" htmlFor="house-create">Numer domu</label>
+                                    <input class="form-control" type="text" id="house-create" maxLength="45"
+                                        placeholder="adres 2"></input>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" htmlFor="flat-create">Numer mieszkania</label>
+                                    <input class="form-control" type="text" id="flat-create" maxLength="45"
+                                        placeholder="adres 3"></input>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                                <button type="button" class="btn btn-primary" id="submit-insert">Dodaj</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- ModalCreate -->
-        <div class="modal fade" id="ModalCreate" tabindex="-1" aria-labelledby="ModalCreateLabel" aria-hidden="true">
+
+        <!-- ModalEdit -->
+        <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="ModalCreateLabel">Dodaj nowego kontrahenta</h5>
+                        <h5 class="modal-title" id="ModalEditLabel">Edytuj kontrahenta</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form>
-                        <div class="modal-body">
+                        <div class="modal-body" id="id-holder" data-index-number="">
                             <div class="mb-3">
-                                <label class="form-label" htmlFor="nip-create">NIP</label>
-                                <input class="form-control" type="text" id="nip-create" maxLength="45"
+                                <label class="form-label" htmlFor="nip-edit">NIP</label>
+                                <input class="form-control" type="text" id="nip-edit" maxLength="45"
                                     placeholder="numer indentyfikacji podatkowej"></input>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" htmlFor="regon-create">REGON</label>
-                                <input class="form-control" type="text" id="regon-create" maxLength="45"
+                                <label class="form-label" htmlFor="regon-edit">REGON</label>
+                                <input class="form-control" type="text" id="regon-edit" maxLength="45"
                                     placeholder="numer REGON"></input>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" htmlFor="name-create">Nazwa</label>
-                                <input class="form-control" type="text" id="name-create" maxLength="45"
+                                <label class="form-label" htmlFor="name-edit">Nazwa</label>
+                                <input class="form-control" type="text" id="name-edit" maxLength="45"
                                     placeholder="nazwa"></input>
                             </div>
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <div class="input-group text-center mb-3">
                                     <span class="input-group-text" id="basic-addon3">Czy płatnik VAT?</span>
                                     <div class="form-control">
-                                        <input class="form-check-input" type="checkbox" value="" id="is-vat-create"></input>
+                                        <input class="form-check-input" type="checkbox" value="" id="is-vat-edit"></input>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" htmlFor="street-create">Ulica</label>
-                                <input class="form-control" type="text" id="street-create" maxLength="45"
+                                <label class="form-label" htmlFor="street-edit">Ulica</label>
+                                <input class="form-control" type="text" id="street-edit" maxLength="45"
                                     placeholder="adres 1"></input>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" htmlFor="house-create">Numer domu</label>
-                                <input class="form-control" type="text" id="house-create" maxLength="45"
+                                <label class="form-label" htmlFor="house-edit">Numer domu</label>
+                                <input class="form-control" type="text" id="house-edit" maxLength="45"
                                     placeholder="adres 2"></input>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" htmlFor="flat-create">Numer mieszkania</label>
-                                <input class="form-control" type="text" id="flat-create" maxLength="45"
+                                <label class="form-label" htmlFor="flat-edit">Numer mieszkania</label>
+                                <input class="form-control" type="text" id="flat-edit" maxLength="45"
                                     placeholder="adres 3"></input>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                            <button type="button" class="btn btn-primary" id="submit-insert">Dodaj</button>
+                            <button type="button" class="btn btn-primary" id="submit-edit">Edytuj</button>
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ModalEdit -->
-    <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ModalEditLabel">Edytuj kontrahenta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form>
-                    <div class="modal-body" id="id-holder" data-index-number="">
-                        <div class="mb-3">
-                            <label class="form-label" htmlFor="nip-edit">NIP</label>
-                            <input class="form-control" type="text" id="nip-edit" maxLength="45"
-                                placeholder="numer indentyfikacji podatkowej"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" htmlFor="regon-edit">REGON</label>
-                            <input class="form-control" type="text" id="regon-edit" maxLength="45"
-                                placeholder="numer REGON"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" htmlFor="name-edit">Nazwa</label>
-                            <input class="form-control" type="text" id="name-edit" maxLength="45"
-                                placeholder="nazwa"></input>
-                        </div>
-                        <div class="d-grid gap-2 col-6 mx-auto">
-                            <div class="input-group text-center mb-3">
-                                <span class="input-group-text" id="basic-addon3">Czy płatnik VAT?</span>
-                                <div class="form-control">
-                                    <input class="form-check-input" type="checkbox" value="" id="is-vat-edit"></input>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" htmlFor="street-edit">Ulica</label>
-                            <input class="form-control" type="text" id="street-edit" maxLength="45"
-                                placeholder="adres 1"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" htmlFor="house-edit">Numer domu</label>
-                            <input class="form-control" type="text" id="house-edit" maxLength="45"
-                                placeholder="adres 2"></input>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" htmlFor="flat-edit">Numer mieszkania</label>
-                            <input class="form-control" type="text" id="flat-edit" maxLength="45"
-                                placeholder="adres 3"></input>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="button" class="btn btn-primary" id="submit-edit">Edytuj</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

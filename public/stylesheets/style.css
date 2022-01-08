@@ -2,6 +2,15 @@ body {
   background-color: rgb(244, 248, 255);
 }
 
+.navbar {
+  padding: 20px 0px 20px 0px;
+  background-color: rgb(201, 220, 250);
+}
+
+.wrapper {
+  height: 100vh;
+}
+
 .sidenav {
   height: 100%;
   width: 25%;
@@ -15,16 +24,21 @@ body {
   font-weight: bold;
 }
 
-
-.sidenav a {
-  color: rgb(26, 46, 158);
+#sideMenu a {
+  color: rgb(13, 109, 252);
+  font-weight: bold;
 }
 
-.main {
-  height: 100hv;
-  width: 75%;
-  margin-left: 25%;
-  padding: 20px;
+#active {
+  color: white;
+}
+
+#sideMenu a:hover {
+  color: rgb(14, 41, 114);
+}
+
+#Main {
+  padding-top: 20px;
 }
 
 .olli {
